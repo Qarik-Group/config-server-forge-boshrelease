@@ -1,3 +1,5 @@
 #!/bin/bash
 # nothing to do, yet.
+
+#gen certs here
 exit 0

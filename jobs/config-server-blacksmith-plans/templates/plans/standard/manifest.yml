@@ -1,14 +1,73 @@
 ---
+meta:
+  size: default
+  default:
+    az: z1
+
 stemcells:
-- alias: default
-  os: ubuntu-xenial
-  version: latest
+  - alias:   default
+    os:      ubuntu-xenial
+    version: latest
+
+releases:
+  - name:    containers
+    version: 1.3.1
+    url:     https://github.com/jhunt/containers-boshrelease/releases/download/v1.3.1/containers-1.3.1.tgz
+    sha1:    ec6945e71aff8d6e7d37f425702713f3ad9227a5
 
 update:
-  canaries: 1
-  max_in_flight: 10
-  canary_watch_time: 1000-30000
-  update_watch_time: 1000-30000
+  canaries:          1
+  max_in_flight:     1
+  serial:            true
+  canary_watch_time: 1000-120000
+  update_watch_time: 1000-120000
 
-releases: (( param "The author or this Forge forgot to define any releases.  Oops." ))
-instance_groups: (( param "The author of this Forge forgot to define any instance_groups.  Oops." ))
+instance_groups:
+  - name: docker
+    instances: 1 
+    azs: [(( grab meta.az || meta.default.az ))]
+    vm_type: (( grab meta.size ))
+    stemcell: default
+    networks: [name: (( grab meta.net ))]
+    persistent_disk: 8192
+
+    jobs:
+      - name: docker
+        release: containers
+        properties:
+          bind: 5001
+          recipe:
+            (( file "docker-compose.yml" ))
+          files:
+            data/cfgsvr/banner.txt:
+              (( file "data/cfgsvr/banner.txt" ))
+            data/cfgsvr/application.yml:
+              info:
+                component: Config Server
+              spring:
+                application:
+                  name: configserver
+                jmx:
+                  default_domain: cloud.config.server
+                cloud:
+                  config:
+                    server:
+                      git: (( grab meta.git ))
+                banner:
+                  location: "file:/config/banner.txt"
+                main:
+                  banner-mode: console  # values off console log
+              #  profiles:
+              #    active: vault
+              management:
+                context_path: /admin
+            data/nginx/nginx.conf:
+              (( file "data/nginx/nginx.conf" ))
+            data/nginx/certs/cfgsvr.local.crt:
+              (( file "data/nginx/certs/cfgsvr.local.crt" ))
+            data/nginx/certs/cfgsvr.local.key:
+              (( file "data/nginx/certs/cfgsvr.local.key" ))
+            data/nginx/dhparam/dhparam.pem:
+              (( file "data/nginx/dhparam/dhparam.pem" ))
+            ./.env:
+              (( file "./.env" ))
