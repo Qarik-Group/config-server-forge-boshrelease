@@ -1,0 +1,7 @@
+---
+- type: replace
+  path: /releases/name=config-server-forge
+  value:
+    name: config-server-forge
+    version: create
+    url: file://.

@@ -1,0 +1,6 @@
+---
+blobstore:
+  provider: s3
+  options:
+    bucket_name: config-server-forge-boshrelease
+final_name: config-server-forge

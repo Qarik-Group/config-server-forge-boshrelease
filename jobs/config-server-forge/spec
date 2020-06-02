@@ -1,0 +1,6 @@
+---
+name: config-server-forge
+packages: []
+templates:
+  ignoreme: ignoreme
+properties: {}
