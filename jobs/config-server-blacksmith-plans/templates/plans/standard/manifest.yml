@@ -38,6 +38,8 @@ instance_groups:
           bind: 5001
           recipe:
             (( file "docker-compose.yml" ))
+          environment:
+            COMPOSE_PROJECT_NAME=oss
           files:
             data/cfgsvr/banner.txt:
               (( file "data/cfgsvr/banner.txt" ))
@@ -69,5 +71,3 @@ instance_groups:
               (( file "data/nginx/certs/cfgsvr.local.key" ))
             data/nginx/dhparam/dhparam.pem:
               (( file "data/nginx/dhparam/dhparam.pem" ))
-            ./.env:
-              (( file "./.env" ))
