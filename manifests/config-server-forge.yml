@@ -15,9 +15,8 @@ instance_groups:
   stemcell: default
   networks: [{name: default}]
   jobs:
-  - name: config-server-forge
-    release: config-server-forge
-    properties: {}
+   - name: config-server-blacksmith-plans
+
 
 variables: []
 
