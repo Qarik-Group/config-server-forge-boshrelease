@@ -2,13 +2,16 @@ name: config-server-blacksmith-plans
 packages: []
 templates:
   bin/configure-blacksmith:         bin/configure-blacksmith
-
   plans/service.yml:                plans/service.yml
-
-  plans/standard/manifest.yml:    plans/standard/manifest.yml
-  plans/standard/credentials.yml: plans/standard/credentials.yml
-  plans/standard/init:            plans/standard/init
-
+  plans/standard/manifest.yml:      plans/standard/manifest.yml
+  plans/standard/credentials.yml:   plans/standard/credentials.yml
+  plans/standard/init:              plans/standard/init
+  plans/standard/data/cfgsvr/banner.txt:              plans/standard/data/cfgsvr/banner.txt
+  plans/standard/data/cfgsvr/application.yml:         plans/standard/data/cfgsvr/application.yml
+  plans/standard/data/nginx/certs/cfgsvr.local.crt:   plans/standard/data/nginx/certs/cfgsvr.local.crt
+  plans/standard/data/nginx/certs/cfgsvr.local.key:   plans/standard/data/nginx/certs/cfgsvr.local.key
+  plans/standard/data/nginx/nginx.conf:               plans/standard/data/nginx/nginx.conf
+  plans/standard/data/nginx/dhparam/dhparam.pem:      plans/standard/data/nginx/dhparam/dhparam.pem
 
 properties:
   service.id:
