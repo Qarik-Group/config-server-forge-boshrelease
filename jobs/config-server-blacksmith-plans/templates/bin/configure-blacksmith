@@ -30,6 +30,8 @@ EOF
 for file in init credentials.yml manifest.yml; do
   cp $PLANSRC/$PLANTYPE/$file $PLANROOT/
 done
+cp -r $PLANSRC/$PLANTYPE/data $PLANROOT/
+
 chmod 0755 $PLANROOT/init
 
 cat > $PLANROOT/params.yml <<EOF
