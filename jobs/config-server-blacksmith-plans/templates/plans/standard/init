@@ -1,9 +1,10 @@
 #!/bin/bash
+[[ $# > 0 ]] && echo init parameters "$@"$
 # nothing to do, yet.
 
 #gen certs here
 
-safe dhparam  ${CREDENTIALS}/config-server/dh
-safe x509  ${CREDENTIALS}/config-server/cert
-safe x509  ${CREDENTIALS}/config-server/cert
+# safe dhparam ${CREDENTIALS}/config-server/dh
+# safe x509  ${CREDENTIALS}/config-server/cert
+# safe x509  ${CREDENTIALS}/config-server/cert
 exit 0
