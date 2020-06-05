@@ -35,3 +35,25 @@ bosh deploy config-server-forge-boshrelease/manifests/config-server-forge.yml
 
 nginx.conf (operator)
 
+
+# Development Notes
+Kevin's blacksmith jumpbox  
+ssh -A team@10.134.0.32
+
+cd src # to get to the git directories
+
+Need to push bosh release twice in the development environment.
+
+bosh -e intrado-vsphere-base upload-release  
+bosh -e intrado-vsphere-base-blacksmith upload-release  
+genesis deploy intrado-vsphere-base.yml -y  
+genesis do intrado-vsphere-base.yml -- boss catalog  
+  
+bosh -e intrado-vsphere-base -d intrado-vsphere-base-blacksmith ssh  
+  
+genesis do intrado-vsphere-base.yml -- boss create config-server standard  
+genesis do intrado-vsphere-base.yml -- boss create config-server/standard  
+bosh -e intrado-vsphere-base -d intrado-vsphere-base-blacksmith ssh  
+genesis do intrado-vsphere-base.yml -- boss create config-server/standard  
+bosh -e intrado-vsphere-base -d intrado-vsphere-base-blacksmith ssh  
+bosh -e intrado-vsphere-base -d intrado-vsphere-base-blacksmith ssh  
