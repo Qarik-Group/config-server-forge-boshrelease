@@ -44,25 +44,7 @@ instance_groups:
             data/cfgsvr/banner.txt:
               (( file "data/cfgsvr/banner.txt" ))
             data/cfgsvr/application.yml:
-              info:
-                component: Config Server
-              spring:
-                application:
-                  name: configserver
-                jmx:
-                  default_domain: cloud.config.server
-                cloud:
-                  config:
-                    server:
-                      git: (( grab meta.git ))
-                banner:
-                  location: "file:/config/banner.txt"
-                main:
-                  banner-mode: console  # values off console log
-              #  profiles:
-              #    active: vault
-              management:
-                context_path: /admin
+              (( file "data/cfgsvr/application.yml" ))
             data/nginx/nginx.conf:
               (( file "data/nginx/nginx.conf" ))
             data/nginx/certs/cfgsvr.local.crt:
