@@ -62,12 +62,11 @@ do
 done
 gen_application_footer
 
-safe set ${CREDENTIALS}/config "docker_compose_yml@${APPLICATIONFILE}"
+safe set ${CREDENTIALS}/config "docker_compose_yml@${DATADIR}/docker-compose.yml"
 safe set ${CREDENTIALS}/config/cfgsvr "application_yml@${APPLICATIONFILE}"
-safe set ${CREDENTIALS}/config/nginx "nginx_conf@${$NGINXDIR/ngnix.conf}"
+safe set ${CREDENTIALS}/config/nginx "nginx_conf@${$NGINXDIR}/ngnix.conf"
 safe set ${CREDENTIALS}/config/nginx "dhparam_pem@${$NGINXDIR}/dhparam/dhparam.pem"
 safe set ${CREDENTIALS}/config/nginx "public_key@${$NGINX}/certs/cfgsvr.local.crt"
-safe set ${CREDENTIALS}/config/nginx "private_key@${$NGINX/certs/cfgsvr.local.key}"
-
+safe set ${CREDENTIALS}/config/nginx "private_key@${$NGINX}/certs/cfgsvr.local.key"
 
 exit 0
