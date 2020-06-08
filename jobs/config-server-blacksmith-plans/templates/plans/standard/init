@@ -1,10 +1,73 @@
 #!/bin/bash
-[[ $# > 0 ]] && echo init parameters "$@"$
-# nothing to do, yet.
 
-#gen certs here
+CREDENTIALS=${CREDENTIALS:-"secret/test"}
+BLACKSMITH_WORKDIR="${WORKDIR:-/tmp}"
+TMPDIR="${TMPDIR:-/tmp}"
+RAWJSONFILE="${RAWJSONFILE:-/tmp/rawjsonfile}"
+YAMLFILE="${YAMLFILE:/tmp/yamlfile}"
+APPLICATIONFILE="${APPLICATIONFILE:-${TMPDIR}/application.$$.yml}"
+DATADIR="${DATADIR:-data}"
+CFGSVRDIR="${DATADIR}/cfgsvr}"
+NGINXDIR="${DATADIR}/nginx}"
 
-# safe dhparam ${CREDENTIALS}/config-server/dh
-# safe x509  ${CREDENTIALS}/config-server/cert
-# safe x509  ${CREDENTIALS}/config-server/cert
+# /var/vcap/jobs/config-server-blacksmith-plans/plans/standard/data/nginx/nginx.conf
+
+gen_application_header() {
+cat <<-EOF >| "${APPLICATIONFILE}"
+info:
+  component: Config Server
+spring:
+  application:
+    name: configserver
+  jmx:
+    default_domain: cloud.config.server
+EOF
+}
+
+gen_application_git() {
+cat <<-EOF >>"${APPLICATIONFILE}"
+  cloud:
+    config:
+      server:
+        git:
+EOF
+}
+
+# parm1 is the key; parm2 is quote|unquote param3 value
+gen_application_git_item() {
+local arg="$3"
+[[ $2 == "quote" ]] && arg="\"$3\""
+cat <<-EOF >>"${APPLICATIONFILE}"
+          $1: $arg
+EOF
+}
+
+gen_application_footer() {
+cat <<-EOF >>"${APPLICATIONFILE}"
+  banner:
+    location: "file:/var/vcap/data/blacksmith/banner.txt"
+  main:
+    banner-mode: console  # values off console log
+management:
+  context_path: /admin
+EOF
+}
+
+gen_application_header
+gen_application_git
+for item in $(jq -r '.git|keys|.[]' "$RAWJSONFILE")
+do
+  declare value=$(jq -r ".git.${item}" "$RAWJSONFILE")
+  gen_application_git_item $item quote "${value}"
+done
+gen_application_footer
+
+safe set ${CREDENTIALS}/config "docker_compose_yml@${APPLICATIONFILE}"
+safe set ${CREDENTIALS}/config/cfgsvr "application_yml@${APPLICATIONFILE}"
+safe set ${CREDENTIALS}/config/nginx "nginx_conf@${$NGINXDIR/ngnix.conf}"
+safe set ${CREDENTIALS}/config/nginx "dhparam_pem@${$NGINXDIR}/dhparam/dhparam.pem"
+safe set ${CREDENTIALS}/config/nginx "public_key@${$NGINX}/certs/cfgsvr.local.crt"
+safe set ${CREDENTIALS}/config/nginx "private_key@${$NGINX/certs/cfgsvr.local.key}"
+
+
 exit 0
