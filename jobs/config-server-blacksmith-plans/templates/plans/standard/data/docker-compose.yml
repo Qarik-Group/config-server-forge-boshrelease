@@ -11,14 +11,14 @@ services:
     volumes:
       # - $PWD/data/nginx/conf.d:/etc/nginx/conf.d
       # - $PWD/data/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - $PWD/data/nginx/:/etc/nginx/
+      - /var/vcap/jobs/docker/etc/running/data/nginx/:/etc/nginx/
 
   config-server:
     image: "hyness/spring-cloud-config-server:2.2.3.RELEASE"
     expose:
       - 8888
     volumes:
-      - $PWD/data/cfgsvr:/config:ro
+      - /var/vcap/jobs/docker/etc/running/data/cfgsvr:/config:ro
     environment:
       - VIRTUAL_HOST=cfgsvr.local
       - VIRTUAL_PORT=8888
