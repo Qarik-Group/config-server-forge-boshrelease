@@ -53,3 +53,5 @@ instance_groups:
               (( vault  $CREDENTIALS "/config/nginx:private_key" ))
             data/nginx/dhparam/dhparam.pem:
               (( vault  $CREDENTIALS "/config/nginx:dhparam_pem" ))
+            ./.env: |
+              COMPOSE_PROJECT_NAME=oss
