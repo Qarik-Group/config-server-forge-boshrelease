@@ -44,6 +44,9 @@ cd src # to get to the git directories
 
 Need to push bosh release twice in the development environment.
 
+cd ops/bosh-deployments
+genesis do intrado-vsphere-base.yml login
+
 bosh -e intrado-vsphere-base upload-release  
 bosh -e intrado-vsphere-base-blacksmith upload-release  
 genesis deploy intrado-vsphere-base.yml -y  

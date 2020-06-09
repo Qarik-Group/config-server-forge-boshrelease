@@ -6,6 +6,7 @@ templates:
   plans/standard/manifest.yml:      plans/standard/manifest.yml
   plans/standard/credentials.yml:   plans/standard/credentials.yml
   plans/standard/init:              plans/standard/init
+  plans/standard/data/docker-compose.yml:             plans/standard/data/docker-compose.yml
   plans/standard/data/cfgsvr/banner.txt:              plans/standard/data/cfgsvr/banner.txt
   plans/standard/data/cfgsvr/application.yml:         plans/standard/data/cfgsvr/application.yml
   plans/standard/data/nginx/certs/cfgsvr.local.crt:   plans/standard/data/nginx/certs/cfgsvr.local.crt

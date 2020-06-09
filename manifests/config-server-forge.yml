@@ -1,12 +1,6 @@
 ---
 name: config-server-forge
 
-addons:
-- name: bpm
-  jobs:
-  - name: bpm
-    release: bpm
-
 instance_groups:
 - name: config-server-forge
   azs: [z1, z2, z3]
@@ -21,9 +15,9 @@ instance_groups:
 variables: []
 
 stemcells:
-- alias: default
-  os: ubuntu-xenial
-  version: latest
+  - alias: default
+    os: ubuntu-xenial
+    version: latest
 
 update:
   canaries: 1
@@ -32,11 +26,9 @@ update:
   max_in_flight: 1
   serial: false
 
+
 releases:
-- name: bpm
-  version: 1.1.8
-  url: git+https://github.com/cloudfoundry/bpm-release
-- name: config-server-forge
-  version: create  # TODO: update after first final release
-  url: .           # TODO: update after first final release
-  # sha1:            TODO: update after first final release
+  - name:    containers
+    version: 1.3.1
+    url:     https://github.com/jhunt/containers-boshrelease/releases/download/v1.3.1/containers-1.3.1.tgz
+    sha1:    ec6945e71aff8d6e7d37f425702713f3ad9227a5
