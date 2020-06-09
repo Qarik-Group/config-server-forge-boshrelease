@@ -48,8 +48,8 @@ instance_groups:
             data/nginx/nginx.conf:
               (( vault  $CREDENTIALS "/config/nginx:nginx_conf" ))
             data/nginx/certs/cfgsvr.local.crt:
-              (( vault  $CREDENTIALS "/config/nginx/certs:public_key" ))
+              (( vault  $CREDENTIALS "/config/nginx:public_key" ))
             data/nginx/certs/cfgsvr.local.key:
-              (( vault  $CREDENTIALS "/config/nginx/certs:private_key" ))
+              (( vault  $CREDENTIALS "/config/nginx:private_key" ))
             data/nginx/dhparam/dhparam.pem:
-              (( vault  $CREDENTIALS "/config/nginx/dhparam:dhparam_pem" ))
+              (( vault  $CREDENTIALS "/config/nginx:dhparam_pem" ))
