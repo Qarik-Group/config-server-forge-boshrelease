@@ -14,7 +14,7 @@ services:
       - $PWD/data/nginx/:/etc/nginx/
 
   config-server:
-    # image: "hyness/spring-cloud-config-server:2.2.3.RELEASE"
+    image: "hyness/spring-cloud-config-server:2.2.3.RELEASE"
     expose:
       - 8888
     volumes:
