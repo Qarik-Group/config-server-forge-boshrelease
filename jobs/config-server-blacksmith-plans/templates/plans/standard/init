@@ -12,6 +12,7 @@ CFGSVRDIR="${DATADIR}/cfgsvr"
 NGINXDIR="${DATADIR}/nginx"
 
 # /var/vcap/jobs/config-server-blacksmith-plans/plans/standard/data/nginx/nginx.conf
+# /var/vcap/data/blacksmith/config-server-forge/services/standard/data/nginx/certs/cfgsvr.local.crt
 
 gen_application_header() {
 cat <<-EOF >| "${APPLICATIONFILE}"
@@ -66,9 +67,9 @@ gen_application_footer
 safe set ${CREDENTIALS}/config "docker_compose_yml@${DATADIR}/docker-compose.yml"
 safe set ${CREDENTIALS}/config/cfgsvr "application_yml@${APPLICATIONFILE}"
 safe set ${CREDENTIALS}/config/cfgsvr "banner_txt@${CFGSVRDIR}/banner.txt"
-safe set ${CREDENTIALS}/config/nginx "nginx_conf@${NGINXDIR}/ngnix.conf"
+safe set ${CREDENTIALS}/config/nginx "nginx_conf@${NGINXDIR}/nginx.conf"
 safe set ${CREDENTIALS}/config/nginx "dhparam_pem@${NGINXDIR}/dhparam/dhparam.pem"
-safe set ${CREDENTIALS}/config/nginx "public_key@${NGINX}/certs/cfgsvr.local.crt"
-safe set ${CREDENTIALS}/config/nginx "private_key@${NGINX}/certs/cfgsvr.local.key"
+safe set ${CREDENTIALS}/config/nginx "public_key@${NGINXDIR}/certs/cfgsvr.local.crt"
+safe set ${CREDENTIALS}/config/nginx "private_key@${NGINXDIR}/certs/cfgsvr.local.key"
 
 exit 0
