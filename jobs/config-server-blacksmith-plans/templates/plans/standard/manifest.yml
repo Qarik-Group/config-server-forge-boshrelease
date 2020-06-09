@@ -42,14 +42,14 @@ instance_groups:
             COMPOSE_PROJECT_NAME=oss
           files:
             data/cfgsvr/banner.txt:
-              (( file "data/cfgsvr/banner.txt" ))
+              (( vault  $CREDENTIALS "/config/cfgsvr:banner_txt" ))
             data/cfgsvr/application.yml:
               (( vault  $CREDENTIALS "/config/cfgsvr:application_yml" ))
             data/nginx/nginx.conf:
-              (( vault  $CREDENTIALS "/config/ngnix:nginx_conf" ))
+              (( vault  $CREDENTIALS "/config/nginx:nginx_conf" ))
             data/nginx/certs/cfgsvr.local.crt:
-              (( vault  $CREDENTIALS "/config/ngnix/certs:public_key" ))
+              (( vault  $CREDENTIALS "/config/nginx/certs:public_key" ))
             data/nginx/certs/cfgsvr.local.key:
-              (( vault  $CREDENTIALS "/config/ngnix/certs:private_key" ))
+              (( vault  $CREDENTIALS "/config/nginx/certs:private_key" ))
             data/nginx/dhparam/dhparam.pem:
-              (( vault  $CREDENTIALS "/config/ngnix/dhparam:dhparam_pem" ))
+              (( vault  $CREDENTIALS "/config/nginx/dhparam:dhparam_pem" ))
