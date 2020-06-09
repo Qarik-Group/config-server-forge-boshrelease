@@ -49,7 +49,7 @@ EOF
 }
 
 gen_application_template
-SPRUCE_FILE_BASE_PATH=${YAMLFILE%/*}  spruce merge -m  --prune meta "${TEMPLATEFILE}" >| ${APPLICATIONFILE}
+SPRUCE_FILE_BASE_PATH=${YAMLFILE%/*}  spruce merge -m  --prune meta "${TEMPLATEFILE}" >| "${APPLICATIONFILE}"
 
 safe set ${CREDENTIALS}/config "docker_compose_yml@${DATADIR}/docker-compose.yml"
 safe set ${CREDENTIALS}/config/cfgsvr "application_yml@${APPLICATIONFILE}"
@@ -58,5 +58,9 @@ safe set ${CREDENTIALS}/config/nginx "nginx_conf@${NGINXDIR}/nginx.conf"
 safe set ${CREDENTIALS}/config/nginx "dhparam_pem@${NGINXDIR}/dhparam/dhparam.pem"
 safe set ${CREDENTIALS}/config/nginx "public_key@${NGINXDIR}/certs/cfgsvr.local.crt"
 safe set ${CREDENTIALS}/config/nginx "private_key@${NGINXDIR}/certs/cfgsvr.local.key"
+
+[[ -z "${BLACKSMITH_DEBUG-}" ]] && {
+  rm -f "${TEMPLATEFILE}" "${APPLICATIONFILE}"
+}
 
 exit 0
