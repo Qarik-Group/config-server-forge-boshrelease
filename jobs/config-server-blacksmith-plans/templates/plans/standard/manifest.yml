@@ -50,6 +50,8 @@ instance_groups:
               (( vault  $CREDENTIALS "/config/cfgsvr:application_yml" ))
             data/nginx/nginx.conf:
               (( vault  $CREDENTIALS "/config/nginx:nginx_conf" ))
+            data/nginx/nginx.passwd:
+              (( vault  $CREDENTIALS "/config/nginx:nginx_passwd" ))
             data/nginx/certs/cfgsvr.local.crt:
               (( vault  $CREDENTIALS "/config/nginx:public_key" ))
             data/nginx/certs/cfgsvr.local.key:
