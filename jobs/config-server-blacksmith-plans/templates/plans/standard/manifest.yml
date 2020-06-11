@@ -3,6 +3,9 @@ meta:
   size: default
   default:
     az: z1
+  basic_auth:
+    username: (( vault $CREDENTIALS "/config:username" ))
+    password: (( vault $CREDENTIALS "/config:password" ))
 
 stemcells:
   - alias:   default

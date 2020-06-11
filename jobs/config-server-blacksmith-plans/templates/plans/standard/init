@@ -51,6 +51,13 @@ EOF
 gen_application_template
 SPRUCE_FILE_BASE_PATH=${YAMLFILE%/*}  spruce merge -m  --prune meta "${TEMPLATEFILE}" >| "${APPLICATIONFILE}"
 
+
+# Do these names need to stay at username password instead of client_* names?
+safe gen -l 16 ${CREDENTIALS}/config username
+safe gen       ${CREDENTIALS}/config password
+safe fmt crypt-sha512 ${CREDENTIALS}/config password nginx_password
+echo "$(safe get ${CREDENTIALS}/config:username):$(safe get ${CREDENTIALS}/config:nginx_password)" > ${DATADIR}/nginx.passwd
+
 safe set ${CREDENTIALS}/config "docker_compose_yml@${DATADIR}/docker-compose.yml"
 safe set ${CREDENTIALS}/config/cfgsvr "application_yml@${APPLICATIONFILE}"
 safe set ${CREDENTIALS}/config/cfgsvr "banner_txt@${CFGSVRDIR}/banner.txt"

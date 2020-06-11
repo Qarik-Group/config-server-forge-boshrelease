@@ -22,3 +22,6 @@ services:
     environment:
       - VIRTUAL_HOST=cfgsvr.local
       - VIRTUAL_PORT=8888
+#      - SPRING_PROFILES_ACTIVE=security
+#      - SPRING_SECURITY_USER_NAME=(( grab meta.username )) 
+#      - SPRING_SECURITY_USER_PASSWORD=(( grab meta.password ))
